@@ -11,4 +11,5 @@ object RetrofitProvider {
             .build()
 
     val service: ItemService = retrofit.create(ItemService::class.java)
+    val service2: StudentService = retrofit.create(StudentService::class.java)
 }
