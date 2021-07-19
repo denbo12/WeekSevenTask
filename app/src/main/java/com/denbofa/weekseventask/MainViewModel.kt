@@ -10,6 +10,7 @@ class MainViewModel: ViewModel() {
 
     val items: MutableLiveData<List<ItemModel>> = MutableLiveData()
     val students: MutableLiveData<List<StudentModel>> = MutableLiveData()
+    val addstudent: MutableLiveData<List<StudentModel>> = MutableLiveData()
 
     fun getAllItems(){
         CoroutineScope(Dispatchers.IO).launch {
@@ -23,5 +24,12 @@ class MainViewModel: ViewModel() {
             val student: List<StudentModel> = RetrofitProvider.service2.getAllStudents()
             students.postValue(student)
         }
+    }
+
+    fun pushPost(student: StudentModel){
+       CoroutineScope(Dispatchers.IO).launch {
+           val newStudent: List<StudentModel> = RetrofitProvider.service2.addStudent(student)
+           addstudent.value = newStudent
+       }
     }
 }
