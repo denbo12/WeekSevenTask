@@ -2,9 +2,12 @@ package com.denbofa.weekseventask
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.denbofa.weekseventask.databinding.ActivityStudentsBinding
 import retrofit2.http.POST
+import retrofit2.http.Tag
 
 class StudentsActivity : AppCompatActivity() {
     private lateinit var binding: ActivityStudentsBinding
@@ -34,16 +37,13 @@ class StudentsActivity : AppCompatActivity() {
            var seat: Int = binding.insertedSeat.text.toString().toInt()
            var studentClass: String = binding.insertedClass.text.toString()
 
-           var myPost = StudentModel(studentClass, name, seat)
-           viewModel.apply {
+           if (name.isNotEmpty() && studentClass.isNotEmpty() && seat != null){
+               var myPost = StudentModel(studentClass, name, seat)
                viewModel.pushPost(myPost)
-               addstudent.observe(this@StudentsActivity, {response ->
-                   myStudentAdapter.students = response
-                   myStudentAdapter.notifyDataSetChanged()
-               })
+               Toast.makeText(this, "successful ", Toast.LENGTH_SHORT).show()
+           }else {
+               Toast.makeText(this, "fill all fields ", Toast.LENGTH_SHORT).show()
            }
-
-
        }
     }
 }

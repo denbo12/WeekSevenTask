@@ -29,7 +29,7 @@ class MainViewModel: ViewModel() {
     fun pushPost(student: StudentModel){
        CoroutineScope(Dispatchers.IO).launch {
            val newStudent: List<StudentModel> = RetrofitProvider.service2.addStudent(student)
-           addstudent.value = newStudent
+           addstudent.postValue(newStudent)
        }
     }
 }
